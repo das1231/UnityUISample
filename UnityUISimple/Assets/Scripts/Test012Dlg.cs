@@ -24,20 +24,18 @@ public class Test012Dlg : MonoBehaviour
     private void BtnResultOnClick()
     {
         m_TextResult.text = "";
-        Kor korScore = new Kor(int.Parse(m_InputKor.text));
-        English engScore = new English(int.Parse(m_InputEnglish.text));
-        Math mathScorer = new Math(int.Parse(m_InputMath.text));
-        Name myName = new Name(m_InputName.text);
-        m_TextResult.text += $"이름:{myName.name} 국어:{korScore.kor},영어:{engScore.english},수학:{mathScorer.math}\n";
+        Score score = new Score(int.Parse(m_InputKor.text), int.Parse(m_InputMath.text),
+            int.Parse(m_InputEnglish.text), (m_InputName.text));
+        m_TextResult.text += $"이름:{score.name} 국어:{score.kor},영어:{score.english},수학:{score.math}\n";
 
-        if (300 > Score(korScore.kor, engScore.english, mathScorer.math))
+        if (300 > Sum(score.kor, score.english, score.math))
         {
-            int score = Score(korScore.kor, engScore.english, mathScorer.math);
-            m_TextResult.text += $"합계:{score}, 평균:{Total(score, 3)}";
+            int sumnum = Sum(score.kor, score.english, score.math);
+            m_TextResult.text += $"합계:{sumnum}, 평균:{Total(sumnum, 3)}";
         }
     }
 
-    int Score(int a, int b, int c)
+    int Sum(int a, int b, int c)
     {
         return a + b + c;
     }
@@ -48,35 +46,17 @@ public class Test012Dlg : MonoBehaviour
     }
 }
 
-public class Kor
+public class Score
 {
     public int kor;
-    public Kor(int num)
-    {
-        kor = num;
-    }
-}
-public class Math
-{
     public int math;
-    public Math(int num)
-    {
-        math = num;
-    }
-}
-public class Name
-{
     public string name;
-    public Name(string name)
-    {
-        this.name = name;
-    }
-}
-public class English
-{
     public int english;
-    public English(int num)
+    public Score(int kor,int math,int eng,string name)
     {
-        english = num;
+        this.kor = kor;
+        this.math = math;
+        english = eng;
+        this.name = name;
     }
 }
